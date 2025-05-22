@@ -1,0 +1,18 @@
+*{
+ margin:0;
+ padding: 0;
+ box-size: border-box;
+}
+
+header {
+}
+
+.nav-menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu-item {
+    colo
+}

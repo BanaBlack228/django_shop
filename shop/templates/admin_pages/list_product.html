@@ -1,0 +1,28 @@
+{% extends 'admin_pages/base.html' %}
+
+{% block content %}
+<div>
+{% for product in products %}
+    <div>
+        <div><b>{{ product.pk }}{{ product.name }}</b></div>
+        <div>Категория товара: <span>{{ product.category }}</span></div>
+        <div><i>{{ category.description }}</i></div>
+        <div>
+            {% if product.image %}
+            <img  width="200" height="auto" src="{% product.image.url %}">
+            {% endif %}
+        </div>
+        <div>Цена: <span>{{ product.price }}</span></div>
+        <div>
+            {% if product.available %}
+                <span>Доступен к продаже</span>
+            {% else %}
+                <span>Не доступен к продаже</span>
+            {% endif %}
+        </div>
+        <div>Дата создание позиции: <span>{{ product.created_at }}</span></div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
