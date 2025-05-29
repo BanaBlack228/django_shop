@@ -1,5 +1,6 @@
-
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from unicodedata import category
 
 from .forms import CategoryCreateForm, ProductCreateFrom
 from django.views.generic import (CreateView,
@@ -44,3 +45,20 @@ class ProductDetailView(DetailView):
     template_name = 'admin_page/detail_product.html'
     context_object_name = 'product'
     slug_url_kwarg = 'slug'
+
+class ProductsByCategoryListView(ListView):
+    model = Product
+    template_name = 'shop/index.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
+        return context
+
+    def get_queryset(self):
+        if not self.kwargs.get('slug'):
+            return Product.objects.all()
+        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        return Product.objects.filter(category=category)
